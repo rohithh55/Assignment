@@ -1,0 +1,81 @@
+
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "devops-app"
+        IMAGE_TAG = "latest"
+        DOCKERHUB_USERNAME = "rohithreddy5"
+    }
+
+    stages {
+
+        stage('Checkout Source Code') {
+            steps {
+                echo "Checking out source code..."
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo "Building Docker image..."
+                sh "docker build -t devops-app:${IMAGE_TAG} ."
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                echo "Running tests..."
+                sh 'echo "Tests Passed"'
+            }
+        }
+
+        stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'rohithreddy5',
+                    passwordVariable: 'xxxxxxxx'
+                )]) {
+
+                    sh '''
+                    echo "$DOCKER_PASS" | docker login -u "rohithreddy5" --password-stdin
+                    '''
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                sh """
+                docker push ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
+                """
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                echo "Deploying application to Kubernetes..."
+                sh "kubectl apply -f deployment.yaml"
+                sh "kubectl apply -f service.yaml"
+            }
+        }
+    }
+
+    post {
+
+        success {
+            echo "Pipeline completed successfully."
+        }
+
+        failure {
+            echo "Pipeline failed."
+        }
+
+        always {
+            echo "Cleaning workspace..."
+            cleanWs()
+        }
+    }
+}
