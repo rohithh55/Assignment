@@ -139,7 +139,7 @@ docker ps
 Stop container
 
 ```bash
-docker stop <container-id>
+docker stop ff3255b3436d
 ```
 
 ---
@@ -217,16 +217,16 @@ Useful commands:
 ```bash
 kubectl get pods
 
-kubectl describe pod <pod-name>
+kubectl describe pod devops
 
-kubectl logs <pod-name>
+kubectl logs devops
 
-kubectl logs <pod-name> --previous
+kubectl logs devops --previous
 
-kubectl exec -it <pod-name> -- sh
+kubectl exec -it devops -- sh
 ```
 
-Suggested monitoring tools:
+I have done a project regarding the monitoring where i have configured this prometheus in the Eks cluster there by the logs gets collected by the prometheus this logs gets converted into dashboards in grafana. and we can alsouse cloudwatch logs to see cpu usage 
 
 * Prometheus
 * Grafana
@@ -238,7 +238,7 @@ Suggested monitoring tools:
 # Part 6 - Microservice Deployment Approach
 
 1. Clone the source code from GitHub.
-2. Create a Dockerfile.
+2. Creating a Dockerfile.
 3. Build and test the Docker image.
 4. Push the image to Docker Hub or Amazon ECR.
 5. Create Kubernetes Deployment and Service YAML files.
