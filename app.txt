@@ -1,2 +1,2 @@
-Python-app
+React-app
 
