@@ -6,7 +6,7 @@ pipeline {
         IMAGE_NAME = "devops-app"
         IMAGE_TAG = "latest"
         DOCKERHUB_USERNAME = "rohithreddy5"
-    }
+    } 
 
     stages {
 
