@@ -14,7 +14,7 @@ ssh-keygen -t ed25519 -C "rohiithh5@gmail.com"
 cat ~/.ssh/id_ed25519.pub
 ssh -T git@github.com
 ```
-this genrates ssh key and this key can be added into githun settings>ssh and gph keys.
+this genrates ssh key and this key can be added into github settings>ssh and gph keys.
 
 After adding the key, I changed my repository remote URL from HTTPS to SSH.
 
@@ -36,7 +36,7 @@ git fetch origin
 
 ### git pull
 
-Downloads the latest changes and automatically merges them into the current branch.we can say that git add + git merge gives you git pull
+Downloads the latest changes and automatically merges them into the current branch.we can say that "git add + git merge gives you git pull"
 
 ```bash
 git pull origin main
@@ -227,6 +227,11 @@ kubectl exec -it devops -- sh
 ```
 
 I have done a project regarding the monitoring where i have configured this prometheus in the Eks cluster there by the logs gets collected by the prometheus this logs gets converted into dashboards in grafana. and we can alsouse cloudwatch logs to see cpu usage 
+ # i used this command to trigger the traffic to my application to monitor the app crashing an rebuilding itself by the Eks cluster
+ ```bash
+ab -n 50000 -c 100 http://ALB/jobs
+```
+# then by using the grafana interface we can see the metrics,  please refer this project (https://github.com/rohithh55/Self-healing-Kubernetes-SRE-Project-.git)
 
 * Prometheus
 * Grafana
