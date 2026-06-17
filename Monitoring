@@ -1,0 +1,9 @@
+kubectl get pods
+
+kubectl describe pod devops
+
+kubectl logs devops
+
+kubectl logs devops --previous
+
+kubectl exec -it devops -- sh
